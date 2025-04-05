@@ -1,0 +1,325 @@
+<h1 id="deep-mutational-scanning-of-sars-cov-2-xbb15-spike-and-antibody-escape-mapping">Deep mutational scanning of SARS-CoV-2 XBB.1.5 spike and antibody escape mapping</h1>
+<p>Analysis by Bernadeta Dadonaite and Jesse Bloom (2025)</p>
+<p>See <a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs">https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs</a> for full code.</p>
+<div class="toc"><span class="toctitle">Contents</span><ul>
+<li><a href="#barcode-to-codon-variant-lookup-table">Barcode to codon-variant lookup table</a></li>
+<li><a href="#count-barcodes-for-variants">Count barcodes for variants</a></li>
+<li><a href="#functional-effects-of-mutations">Functional effects of mutations</a></li>
+<li><a href="#antibodyserum-escape">Antibody/serum escape</a></li>
+<li><a href="#ace2-binding">ACE2 binding</a></li>
+<li><a href="#integrated-summary-plots">Integrated summary plots</a></li>
+</ul>
+</div>
+<h2 id="barcode-to-codon-variant-lookup-table">Barcode to codon-variant lookup table</h2>
+<h4 id="data-files">Data files</h4>
+<ul>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/gene_sequence/codon.fasta">parental codon sequence</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/gene_sequence/protein.fasta">parental protein sequence</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/variants/codon_variants.csv">barcode to codon-variant lookup table</a></li>
+</ul>
+<h2 id="count-barcodes-for-variants">Count barcodes for variants</h2>
+<h4 id="analysis-notebooks">Analysis notebooks</h4>
+<ul>
+<li><a href="notebooks/analyze_variant_counts.html">Analysis of variant counts</a></li>
+</ul>
+<h4 id="data-files_1">Data files</h4>
+<ul>
+<li><details><summary>Barcode count CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-VSVG_control_293T_counts.csv">Lib1-230614-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-VSVG_control_293T_counts.csv">Lib2-230614-VSVG_control_293T</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-no-antibody_control_highACE2_counts.csv">Lib1-230614-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-no-antibody_control_highACE2_counts.csv">Lib2-230614-no-antibody_control_highACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-no-antibody_control_mediumACE2_counts.csv">Lib1-230614-no-antibody_control_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-no-antibody_control_mediumACE2_counts.csv">Lib2-230614-no-antibody_control_mediumACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-monomeric_ACE2_2.88_counts.csv">Lib1-230614-monomeric_ACE2_2.88</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-monomeric_ACE2_8.63_counts.csv">Lib1-230614-monomeric_ACE2_8.63</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-monomeric_ACE2_25.9_counts.csv">Lib1-230614-monomeric_ACE2_25.9</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-monomeric_ACE2_77.7_counts.csv">Lib1-230614-monomeric_ACE2_77.7</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-230614-monomeric_ACE2_233_counts.csv">Lib1-230614-monomeric_ACE2_233</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-monomeric_ACE2_2.88_counts.csv">Lib2-230614-monomeric_ACE2_2.88</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-monomeric_ACE2_8.63_counts.csv">Lib2-230614-monomeric_ACE2_8.63</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-monomeric_ACE2_25.9_counts.csv">Lib2-230614-monomeric_ACE2_25.9</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-monomeric_ACE2_77.7_counts.csv">Lib2-230614-monomeric_ACE2_77.7</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-230614-monomeric_ACE2_233_counts.csv">Lib2-230614-monomeric_ACE2_233</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-no-antibody_control_counts.csv">Lib1-240216-no-antibody_control</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-A18-448.1_2.828_counts.csv">Lib1-240216-A18-448.1_2.828</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-A18-448.1_11.312_counts.csv">Lib1-240216-A18-448.1_11.312</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-F768-104_B2_19.52_counts.csv">Lib1-240216-F768-104_B2_19.52</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-F768-104_B2_78.08_counts.csv">Lib1-240216-F768-104_B2_78.08</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-F769-E12_3.648_counts.csv">Lib1-240216-F769-E12_3.648</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-F769-E12_14.592_counts.csv">Lib1-240216-F769-E12_14.592</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-A43-10.4_72_counts.csv">Lib1-240216-A43-10.4_72</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-240216-A43-10.4_288_counts.csv">Lib1-240216-A43-10.4_288</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-no-antibody_control_counts.csv">Lib2-240216-no-antibody_control</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-A18-448.1_2.828_counts.csv">Lib2-240216-A18-448.1_2.828</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-A18-448.1_11.312_counts.csv">Lib2-240216-A18-448.1_11.312</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-F768-104_B2_19.52_counts.csv">Lib2-240216-F768-104_B2_19.52</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-F768-104_B2_78.08_counts.csv">Lib2-240216-F768-104_B2_78.08</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-F769-E12_3.648_counts.csv">Lib2-240216-F769-E12_3.648</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-F769-E12_14.592_counts.csv">Lib2-240216-F769-E12_14.592</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-A43-10.4_72_counts.csv">Lib2-240216-A43-10.4_72</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib2-240216-A43-10.4_288_counts.csv">Lib2-240216-A43-10.4_288</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-no_antibody_control_counts.csv">Lib1-250404-no_antibody_control</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B09_0.16_counts.csv">Lib1-250404-B09_0.16</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B09_0.48_counts.csv">Lib1-250404-B09_0.48</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B09_1.45_counts.csv">Lib1-250404-B09_1.45</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B12_0.84_counts.csv">Lib1-250404-B12_0.84</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B12_2.53_counts.csv">Lib1-250404-B12_2.53</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-B12_7.6_counts.csv">Lib1-250404-B12_7.6</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C09_0.43_counts.csv">Lib1-250404-C09_0.43</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C09_1.29_counts.csv">Lib1-250404-C09_1.29</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C09_3.86_counts.csv">Lib1-250404-C09_3.86</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C12_0.49_counts.csv">Lib1-250404-C12_0.49</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C12_1.48_counts.csv">Lib1-250404-C12_1.48</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-C12_4.45_counts.csv">Lib1-250404-C12_4.45</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-D09_0.68_counts.csv">Lib1-250404-D09_0.68</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-D09_2.03_counts.csv">Lib1-250404-D09_2.03</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/barcode_counts/Lib1-250404-D09_6.08_counts.csv">Lib1-250404-D09_6.08</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="functional-effects-of-mutations">Functional effects of mutations</h2>
+<h4 id="final-summary-plots">Final summary plots</h4>
+<ul>
+<li><details><summary>Interactive plots of average mutation functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/293T_high_ACE2_entry_func_effects.html">293T_high_ACE2_entry</a></li>
+<li><a href="htmls/293T_medium_ACE2_entry_func_effects.html">293T_medium_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Interactive plots of average mutation latent-phenotype effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/293T_high_ACE2_entry_latent_effects.html">293T_high_ACE2_entry</a></li>
+<li><a href="htmls/293T_medium_ACE2_entry_latent_effects.html">293T_medium_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Interactive plots of average shifts in functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/date_comparison_shifts.html">date_comparison</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="analysis-notebooks_1">Analysis notebooks</h4>
+<ul>
+<li><a href="notebooks/analyze_func_scores.html">Analysis of functional scores</a></li>
+<li><details><summary>Notebooks with per-selection global epistasis fitting (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/func_effects_global_epistasis_Lib1-230614_high_ACE2.html">Lib1-230614_high_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib2-230614_high_ACE2.html">Lib2-230614_high_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib1-230614_medium_ACE2.html">Lib1-230614_medium_ACE2</a></li>
+<li><a href="notebooks/func_effects_global_epistasis_Lib2-230614_medium_ACE2.html">Lib2-230614_medium_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Notebooks averaging mutation functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_func_effects_293T_high_ACE2_entry.html">293T_high_ACE2_entry</a></li>
+<li><a href="notebooks/avg_func_effects_293T_medium_ACE2_entry.html">293T_medium_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Notebooks fitting shifts in functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/func_effect_shifts_Lib1-230614_ACE2_expression.html">Lib1-230614_ACE2_expression</a></li>
+<li><a href="notebooks/func_effect_shifts_Lib2-230614_ACE2_expression.html">Lib2-230614_ACE2_expression</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Notebooks averaging shifts in functional effects (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_func_effect_shifts_date_comparison.html">date_comparison</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="data-files_2">Data files</h4>
+<ul>
+<li><details><summary>Per-variant functional score CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_scores/Lib1-230614_high_ACE2_func_scores.csv">Lib1-230614_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_scores/Lib2-230614_high_ACE2_func_scores.csv">Lib2-230614_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_scores/Lib1-230614_medium_ACE2_func_scores.csv">Lib1-230614_medium_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_scores/Lib2-230614_medium_ACE2_func_scores.csv">Lib2-230614_medium_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Per-selection mutation functional effect CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/by_selection/Lib1-230614_high_ACE2_func_effects.csv">Lib1-230614_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/by_selection/Lib2-230614_high_ACE2_func_effects.csv">Lib2-230614_high_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/by_selection/Lib1-230614_medium_ACE2_func_effects.csv">Lib1-230614_medium_ACE2</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/by_selection/Lib2-230614_medium_ACE2_func_effects.csv">Lib2-230614_medium_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average mutation functional effects (CSV files) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv">293T_high_ACE2_entry</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/averages/293T_medium_ACE2_entry_func_effects.csv">293T_medium_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average mutation latent-phenotype effects (CSV files) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv">293T_high_ACE2_entry</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effects/averages/293T_medium_ACE2_entry_func_effects.csv">293T_medium_ACE2_entry</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Per-condition functional effect shifts CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effect_shifts/by_comparison/Lib1-230614_ACE2_expression_shifts.csv">Lib1-230614_ACE2_expression</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effect_shifts/by_comparison/Lib2-230614_ACE2_expression_shifts.csv">Lib2-230614_ACE2_expression</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average shifts in functional effects (CSV files) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/func_effect_shifts/averages/date_comparison_shifts.csv">date_comparison</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="antibodyserum-escape">Antibody/serum escape</h2>
+<h4 id="final-summary-plots_1">Final summary plots</h4>
+<ul>
+<li><details><summary>antibody escape mutation effect plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/mAb-D09_mut_effect.html">mAb-D09</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>antibody escape mutation ICXX plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/mAb-D09_mut_icXX.html">mAb-D09</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="analysis-notebooks_2">Analysis notebooks</h4>
+<ul>
+<li><details><summary>Fits of polyclonal models to individual antibody escape selections (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/fit_escape_antibody_escape_Lib1-250404-B09.html">Lib1-250404-B09</a></li>
+<li><a href="notebooks/fit_escape_antibody_escape_Lib1-250404-B12.html">Lib1-250404-B12</a></li>
+<li><a href="notebooks/fit_escape_antibody_escape_Lib1-250404-C09.html">Lib1-250404-C09</a></li>
+<li><a href="notebooks/fit_escape_antibody_escape_Lib1-250404-C12.html">Lib1-250404-C12</a></li>
+<li><a href="notebooks/fit_escape_antibody_escape_Lib1-250404-D09.html">Lib1-250404-D09</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average selections for antibody escape (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_escape_antibody_escape_mAb-D09.html">mAb-D09</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="data-files_3">Data files</h4>
+<ul>
+<li><details><summary>Probability (fraction) escape for each variant in each antibody escape selection (CSVs) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B09/Lib1-250404-B09_0.16_prob_escape.csv">Lib1-250404-B09 Lib1-250404-B09_0.16</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B09/Lib1-250404-B09_0.48_prob_escape.csv">Lib1-250404-B09 Lib1-250404-B09_0.48</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B09/Lib1-250404-B09_1.45_prob_escape.csv">Lib1-250404-B09 Lib1-250404-B09_1.45</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B12/Lib1-250404-B12_0.84_prob_escape.csv">Lib1-250404-B12 Lib1-250404-B12_0.84</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B12/Lib1-250404-B12_2.53_prob_escape.csv">Lib1-250404-B12 Lib1-250404-B12_2.53</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-B12/Lib1-250404-B12_7.6_prob_escape.csv">Lib1-250404-B12 Lib1-250404-B12_7.6</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C09/Lib1-250404-C09_0.43_prob_escape.csv">Lib1-250404-C09 Lib1-250404-C09_0.43</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C09/Lib1-250404-C09_1.29_prob_escape.csv">Lib1-250404-C09 Lib1-250404-C09_1.29</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C09/Lib1-250404-C09_3.86_prob_escape.csv">Lib1-250404-C09 Lib1-250404-C09_3.86</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C12/Lib1-250404-C12_0.49_prob_escape.csv">Lib1-250404-C12 Lib1-250404-C12_0.49</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C12/Lib1-250404-C12_1.48_prob_escape.csv">Lib1-250404-C12 Lib1-250404-C12_1.48</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-C12/Lib1-250404-C12_4.45_prob_escape.csv">Lib1-250404-C12 Lib1-250404-C12_4.45</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-D09/Lib1-250404-D09_0.68_prob_escape.csv">Lib1-250404-D09 Lib1-250404-D09_0.68</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-D09/Lib1-250404-D09_2.03_prob_escape.csv">Lib1-250404-D09 Lib1-250404-D09_2.03</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/by_selection/Lib1-250404-D09/Lib1-250404-D09_6.08_prob_escape.csv">Lib1-250404-D09 Lib1-250404-D09_6.08</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>antibody escape CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/averages/mAb-D09_mut_effect.csv">mAb-D09</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>antibody escape ICXX CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/antibody_escape/averages/mAb-D09_mut_icXX.csv">mAb-D09</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="ace2-binding">ACE2 binding</h2>
+<h4 id="final-summary-plots_2">Final summary plots</h4>
+<ul>
+<li><details><summary>ACE2 binding mutation effect plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/monomeric_ACE2_mut_effect.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>ACE2 binding mutation ICXX plots (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="htmls/monomeric_ACE2_mut_icXX.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="analysis-notebooks_3">Analysis notebooks</h4>
+<ul>
+<li><details><summary>Fits of polyclonal models to individual ACE2 binding selections (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/fit_escape_ACE2_binding_Lib1-230614-monomeric_ACE2.html">Lib1-230614-monomeric_ACE2</a></li>
+<li><a href="notebooks/fit_escape_ACE2_binding_Lib2-230614-monomeric_ACE2.html">Lib2-230614-monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>Average selections for ACE2 binding (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="notebooks/avg_escape_ACE2_binding_monomeric_ACE2.html">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h4 id="data-files_4">Data files</h4>
+<ul>
+<li><details><summary>Probability (fraction) escape for each variant in each ACE2 binding selection (CSVs) (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib1-230614-monomeric_ACE2/Lib1-230614-monomeric_ACE2_2.88_prob_escape.csv">Lib1-230614-monomeric_ACE2 Lib1-230614-monomeric_ACE2_2.88</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib1-230614-monomeric_ACE2/Lib1-230614-monomeric_ACE2_8.63_prob_escape.csv">Lib1-230614-monomeric_ACE2 Lib1-230614-monomeric_ACE2_8.63</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib1-230614-monomeric_ACE2/Lib1-230614-monomeric_ACE2_25.9_prob_escape.csv">Lib1-230614-monomeric_ACE2 Lib1-230614-monomeric_ACE2_25.9</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib1-230614-monomeric_ACE2/Lib1-230614-monomeric_ACE2_77.7_prob_escape.csv">Lib1-230614-monomeric_ACE2 Lib1-230614-monomeric_ACE2_77.7</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib1-230614-monomeric_ACE2/Lib1-230614-monomeric_ACE2_233_prob_escape.csv">Lib1-230614-monomeric_ACE2 Lib1-230614-monomeric_ACE2_233</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib2-230614-monomeric_ACE2/Lib2-230614-monomeric_ACE2_2.88_prob_escape.csv">Lib2-230614-monomeric_ACE2 Lib2-230614-monomeric_ACE2_2.88</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib2-230614-monomeric_ACE2/Lib2-230614-monomeric_ACE2_8.63_prob_escape.csv">Lib2-230614-monomeric_ACE2 Lib2-230614-monomeric_ACE2_8.63</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib2-230614-monomeric_ACE2/Lib2-230614-monomeric_ACE2_25.9_prob_escape.csv">Lib2-230614-monomeric_ACE2 Lib2-230614-monomeric_ACE2_25.9</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib2-230614-monomeric_ACE2/Lib2-230614-monomeric_ACE2_77.7_prob_escape.csv">Lib2-230614-monomeric_ACE2 Lib2-230614-monomeric_ACE2_77.7</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/by_selection/Lib2-230614-monomeric_ACE2/Lib2-230614-monomeric_ACE2_233_prob_escape.csv">Lib2-230614-monomeric_ACE2 Lib2-230614-monomeric_ACE2_233</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>ACE2 binding CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/averages/monomeric_ACE2_mut_effect.csv">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+<li><details><summary>ACE2 binding ICXX CSVs (click triangle to expand/collapse)</summary><ul>
+
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/ACE2_binding/averages/monomeric_ACE2_mut_icXX.csv">monomeric_ACE2</a></li>
+</ul></details>
+
+</li>
+</ul>
+<h2 id="integrated-summary-plots">Integrated summary plots</h2>
+<h4 id="summary-default">summary default</h4>
+<ul>
+<li><a href="htmls/summary_default_overlaid.html">Summary plot</a></li>
+<li><a href="https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/main/results/summaries/summary_default.csv">CSV summarizing results</a></li>
+</ul>
