@@ -345,12 +345,29 @@ avg_antibody_escape_default: &avg_antibody_escape_default
 avg_antibody_escape:
   mAb-D09:
     <<: *avg_antibody_escape_default
-    title: CA18-448.1 mAb escape
+    title: D09 mAb escape
     selections:
-      - Lib1-250404-D09
-  
-
-
+      - Lib1-250404-D09  
+  mAb-C12:
+    <<: *avg_antibody_escape_default
+    title: C12 mAb escape
+    selections:
+      - Lib1-250404-C12
+  mAb-B09:
+    <<: *avg_antibody_escape_default
+    title: B09 mAb escape
+    selections:
+      - Lib1-250404-B09
+  mAb-B12:
+    <<: *avg_antibody_escape_default
+    title: B12 mAb escape
+    selections:
+      - Lib1-250404-B12
+  mAb-C09:
+    <<: *avg_antibody_escape_default
+    title: C09 mAb escape
+    selections:
+      - Lib1-250404-C09
 
 # Define the receptor affinity experiments to average
 avg_ACE2_binding_default: &avg_ACE2_binding_default
