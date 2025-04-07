@@ -2,7 +2,7 @@
 Study by Bernadeta Dadonaite and Jesse Bloom.  
 
 This repo contains data for deep muattional scanning of XBB.1.5 spike and escape for RBD-targetting antibodies from VIM.
-For documentation of the analysis, see [https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/](https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/)
+For documentation of the analysis, see [http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/](http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/)
 
 ## Organization of this repo
 
