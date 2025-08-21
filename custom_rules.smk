@@ -24,11 +24,11 @@ rule escape_logos:
     input:
         per_antibody_escape = "results/summaries/Antibody_escape.csv",
     output:
-        B09 = "results/escape_logos/averages/mAb-B09_spike_DMS_logo_plot.svg",
-        B12 = "results/escape_logos/averages/mAb-B12_spike_DMS_logo_plot.svg",
-        C09 = "results/escape_logos/averages/mAb-C09_spike_DMS_logo_plot.svg",
-        C12 = "results/escape_logos/averages/mAb-C12_spike_DMS_logo_plot.svg",
-        D09 = "results/escape_logos/averages/mAb-D09_spike_DMS_logo_plot.svg"
+        B09 = "results/escape_logos/018-1_spike_DMS_logo_plot.svg",
+        B12 = "results/escape_logos/053-3_spike_DMS_logo_plot.svg",
+        C09 = "results/escape_logos/053-6_spike_DMS_logo_plot.svg",
+        C12 = "results/escape_logos/043-1_spike_DMS_logo_plot.svg",
+        D09 = "results/escape_logos/052-3_spike_DMS_logo_plot.svg"
     log:
         notebook = "results/logs/escape_logoplots_for_key_sites.txt",
     conda:
