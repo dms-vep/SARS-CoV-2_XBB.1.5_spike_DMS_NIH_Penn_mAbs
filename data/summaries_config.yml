@@ -55,11 +55,11 @@ Antibody_escape:
       max_at_least: 2  # make heatmap max at least
       min_at_least: -2  # make heatmap min at least this
       antibody_list:  # antibodies to include and their CSVs
-        mAb-B09: results/antibody_escape/averages/mAb-B09_mut_effect.csv
-        mAb-B12: results/antibody_escape/averages/mAb-B12_mut_effect.csv
-        mAb-C09: results/antibody_escape/averages/mAb-C09_mut_effect.csv
-        mAb-C12: results/antibody_escape/averages/mAb-C12_mut_effect.csv
-        mAb-D09: results/antibody_escape/averages/mAb-D09_mut_effect.csv
+        018-1: results/antibody_escape/averages/018-1_mut_effect.csv
+        053-3: results/antibody_escape/averages/053-3_mut_effect.csv
+        053-6: results/antibody_escape/averages/053-6_mut_effect.csv
+        043-1: results/antibody_escape/averages/043-1_mut_effect.csv
+        052-3: results/antibody_escape/averages/052-3_mut_effect.csv
   other_phenotypes:
     entry in 293T cells:
       csv: results/func_effects/averages/293T_high_ACE2_entry_func_effects.csv  # CSV w data

@@ -419,33 +419,33 @@ avg_antibody_escape_default: &avg_antibody_escape_default
 
 # Define the antibodies/sera to average
 avg_antibody_escape:
-  mAb-B09:
+  018-1:
     <<: *avg_antibody_escape_default
-    title: B09 mAb escape
+    title: 018-1 escape
     selections:
       - Lib1-250404-B09
       - Lib2-250404-B09
-  mAb-B12:
+  053-3:
     <<: *avg_antibody_escape_default
-    title: B12 mAb escape
+    title: 053-3 mAb escape
     selections:
       - Lib1-250404-B12
       - Lib2-250404-B12
-  mAb-C09:
+  053-6:
     <<: *avg_antibody_escape_default
-    title: C09 mAb escape
+    title: 053-6 mAb escape
     selections:
       - Lib1-250404-C09
       - Lib2-250404-C09
-  mAb-C12:
+  043-1:
     <<: *avg_antibody_escape_default
-    title: C12 mAb escape
+    title: 043-1 mAb escape
     selections:
       - Lib1-250404-C12
       - Lib2-250404-C12
-  mAb-D09:
+  052-3:
     <<: *avg_antibody_escape_default
-    title: D09 mAb escape
+    title: 052-3 mAb escape
     selections:
       - Lib1-250404-D09
       - Lib2-250404-D09
