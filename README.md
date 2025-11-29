@@ -1,8 +1,9 @@
 # Deep mutational scanning of SARS-CoV-2 XBB.1.5 spike and antibody escape mapping
 Study by Bernadeta Dadonaite and Jesse Bloom.  
 
-This repo contains data for deep muattional scanning of XBB.1.5 spike and escape for RBD-targetting antibodies.
-For documentation of the analysis, see [http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/](http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/)
+This repo contains data for deep mutational scanning of XBB.1.5 spike and antibody escape mapping. Antibodies used in this repo were isolated by Timothy Johnston and target the receptor binding domain of the spike.
+
+For documentation of the analysis, see [http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/](http://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/). Interactive plot showing mutation and site-level escape for each antibody in this study is available [here](https://dms-vep.org/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/htmls/Antibody_escape_faceted.html) and raw numerical values for escape data are [here](https://github.com/dms-vep/SARS-CoV-2_XBB.1.5_spike_DMS_NIH_Penn_mAbs/blob/master/results/summaries/Antibody_escape.csv). 
 
 ## Organization of this repo
 
